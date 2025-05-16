@@ -40,3 +40,31 @@ export async function validateInstance(instance: string): Promise<boolean> {
     return false;
   }
 }
+
+export async function doSomething(instance: string): Promise<boolean> {
+  if (!instance) {
+    trace('No instance provided for validation');
+    return false;
+  }
+
+
+  const URL = `https://${instance}-be.glean.com/do-something`;
+  trace(`Checking instance validity with: ${URL}`);
+
+  const response = await fetch(URL, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+    },
+  });
+
+  // We only care that the request succeeds, not about the response content
+  if (!response.ok) {
+    error(
+      `Instance validation failed for ${instance}: ${response.status} ${response.statusText}`,
+    );
+    return false;
+  }
+
+  return true;
+}
