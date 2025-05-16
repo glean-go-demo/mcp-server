@@ -50,6 +50,12 @@ export interface GleanBasicConfigNoToken {
   tokenEndpoint?: string;
 }
 
+export interface TestNewInterface{
+  FirstName: 'Test';
+  LastName: string;
+  Email: string;
+}
+
 interface GleanCommonConfig {
   baseUrl: string;
 }
